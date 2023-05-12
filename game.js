@@ -5,19 +5,21 @@ class Demo1 extends AdventureScene {
 
     onEnter() {
 
-        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
+        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "🍾 Empty bottle")
             .setFontSize(this.s * 2)
             .setInteractive()
-            .on('pointerover', () => this.showMessage("Metal, bent."))
+            .on('pointerover', () => this.showMessage("I wonder if you can blow air into it and make a sound?"))
             .on('pointerdown', () => {
-                this.showMessage("No touching!");
+                this.playSound(0,0,0,0,1,0);
+                this.showMessage("What a pretty song. I wonder if we can add anything to it?");
+                this.gainItem('🍾 Empty bottle');
                 this.tweens.add({
                     targets: clip,
-                    x: '+=' + this.s,
-                    repeat: 2,
+                    y: '+=' + this.s/2,
+                    repeat: 6,
                     yoyo: true,
                     ease: 'Sine.inOut',
-                    duration: 100
+                    duration: 500
                 });
             });
 
@@ -28,6 +30,7 @@ class Demo1 extends AdventureScene {
                 this.showMessage("It's a nice key.")
             })
             .on('pointerdown', () => {
+                this.playSound(0,1,0,0,1,0);
                 this.showMessage("You pick up the key.");
                 this.gainItem('key');
                 this.tweens.add({

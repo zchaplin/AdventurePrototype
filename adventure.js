@@ -3,7 +3,15 @@ class AdventureScene extends Phaser.Scene {
     init(data) {
         this.inventory = data.inventory || [];
     }
-
+    preload() {
+        // Load the assets needed for the game scene
+        this.load.audio('piano', 'audio/Piano.wav');
+        this.load.audio('bottle', 'audio/Bottle.wav');
+        this.load.audio('horn', 'audio/Horn.wav');
+        this.load.audio('base', 'audio/Base.wav');
+        this.load.audio('strings', 'audio/Strings.wav');
+        this.load.audio('fullArg', 'audio/FullArg.wav');
+    }
     constructor(key, name) {
         super(key);
         this.name = name;
@@ -56,10 +64,11 @@ class AdventureScene extends Phaser.Scene {
     showMessage(message) {
         this.messageBox.setText(message);
         this.tweens.add({
+            delay: 3000,
             targets: this.messageBox,
             alpha: { from: 1, to: 0 },
             easing: 'Quintic.in',
-            duration: 4 * this.transitionDuration
+            duration: 2 * this.transitionDuration
         });
     }
 
@@ -143,7 +152,33 @@ class AdventureScene extends Phaser.Scene {
             this.scene.start(key, { inventory: this.inventory });
         });
     }
-
+    playSound(p,b,h,s,bt,full){
+        if (full == 1){
+            const sound6 = this.sound.add('fullArg');
+            sound6.play();
+            return;
+        }
+        if (p == 1){
+            const sound1 = this.sound.add('piano');
+            sound1.play();
+        }
+        if (b == 1){
+            const sound2 = this.sound.add('base');
+            sound2.play();
+        }
+        if (h == 1){
+            const sound3 = this.sound.add('horn');
+            sound3.play();
+        }
+        if (s == 1){
+            const sound4 = this.sound.add('strings');
+            sound4.play();
+        }
+        if (bt == 1){
+            const sound5 = this.sound.add('bottle');
+            sound5.play();
+        }
+    }
     onEnter() {
         console.warn('This AdventureScene did not implement onEnter():', this.constructor.name);
     }
