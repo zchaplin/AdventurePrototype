@@ -11,6 +11,7 @@ class AdventureScene extends Phaser.Scene {
         this.load.audio('base', 'audio/Base.wav');
         this.load.audio('strings', 'audio/Strings.wav');
         this.load.audio('fullArg', 'audio/FullArg.wav');
+        this.load.image('lilGuy', 'audio/HeadGuy.png');
     }
     constructor(key, name) {
         super(key);
@@ -68,7 +69,7 @@ class AdventureScene extends Phaser.Scene {
             targets: this.messageBox,
             alpha: { from: 1, to: 0 },
             easing: 'Quintic.in',
-            duration: 2 * this.transitionDuration
+            duration: 4 * this.transitionDuration
         });
     }
 
@@ -123,7 +124,20 @@ class AdventureScene extends Phaser.Scene {
             }
         }
     }
-
+    lilGuy(){
+        let x = this.w/3;
+        let y =  this.h/2-100;
+        const image = this.add.image(x, y, 'lilGuy').setScale(1);
+        this.add.text(x-80, y-80, "Edgar Is Jamming To That").setScale(2);
+        this.tweens.add({
+          targets: image,
+          y: image.y + 10,
+          repeat: -1,
+          yoyo: true,
+          ease: 'Sine.inOut',
+          duration: 500
+        });
+      }
     loseItem(item) {
         if (!this.inventory.includes(item)) {
             console.warn('losing item not held:', item);
